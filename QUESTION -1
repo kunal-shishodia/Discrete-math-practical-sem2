@@ -1,0 +1,96 @@
+#include <iostream>
+using namespace std;
+
+class Set {
+private:
+    int a[100];   // simple array
+    int n = 0;    // current size
+
+public:
+    // Input elements
+    void input() {
+        int x, size;
+        cout << "How many elements: ";
+        cin >> size;
+
+        for (int i = 0; i < size; i++) {
+            cin >> x;
+
+            // check duplicate
+            bool found = false;
+            for (int j = 0; j < n; j++) {
+                if (a[j] == x) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                a[n] = x;
+                n++;
+            }
+        }
+    }
+
+    // Display
+    void show() {
+        cout << "{ ";
+        for (int i = 0; i < n; i++) {
+            cout << a[i] << " ";
+        }
+        cout << "}\n";
+    }
+
+    // Check member
+    bool contains(int x) {
+        for (int i = 0; i < n; i++) {
+            if (a[i] == x)
+                return true;
+        }
+        return false;
+    }
+
+    // Union
+    Set unionSet(Set B) {
+        Set C;
+
+        // copy A
+        for (int i = 0; i < n; i++) {
+            C.a[C.n] = a[i];
+            C.n++;
+        }
+
+        // add from B
+        for (int i = 0; i < B.n; i++) {
+            if (!C.contains(B.a[i])) {
+                C.a[C.n] = B.a[i];
+                C.n++;
+            }
+        }
+
+        return C;
+    }
+};
+
+int main() {
+    Set A, B, C;
+
+    cout << "Enter Set A:\n";
+    A.input();
+
+    cout << "Enter Set B:\n";
+    B.input();
+
+    cout << "A = ";
+    A.show();
+
+    cout << "B = ";
+    B.show();
+
+    C = A.unionSet(B);
+
+    cout << "A U B = ";
+    C.show();
+
+    return 0;
+}
