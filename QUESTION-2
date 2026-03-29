@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+class Rel {
+    int a[100][100], n;
+
+public:
+    Rel(int x) { n = x; }
+
+    void input() {
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                cin >> a[i][j];
+    }
+
+    void show() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++)
+                cout << a[i][j] << " ";
+            cout << "\n";
+        }
+    }
+
+    bool reflexive() {
+        for (int i = 0; i < n; i++)
+            if (a[i][i] != 1) return false;
+        return true;
+    }
+
+    bool symmetric() {
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                if (a[i][j] != a[j][i]) return false;
+        return true;
+    }
+
+    bool antisymmetric() {
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                if (i != j && a[i][j] == 1 && a[j][i] == 1)
+                    return false;
+        return true;
+    }
+
+    bool transitive() {
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                if (a[i][j] == 1)
+                    for (int k = 0; k < n; k++)
+                        if (a[j][k] == 1 && a[i][k] != 1)
+                            return false;
+        return true;
+    }
+
+    void result() {
+        bool r = reflexive();
+        bool s = symmetric();
+        bool a1 = antisymmetric();
+        bool t = transitive();
+
+        cout << r << " " << s << " " << a1 << " " << t << "\n";
+
+        if (r && s && t)
+            cout << "Equivalence\n";
+        else if (r && a1 && t)
+            cout << "Partial Order\n";
+        else
+            cout << "None\n";
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+
+    Rel r(n);
+
+    r.input();
+    r.show();
+    r.result();
+
+    return 0;
+}
