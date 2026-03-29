@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+class Poly {
+    int a[100], n;
+
+public:
+    void input() {
+        cin >> n;
+        for (int i = 0; i <= n; i++) {
+            cin >> a[i];
+        }
+    }
+
+    void show() {
+        for (int i = n; i >= 0; i--) {
+            if (a[i] != 0) {
+                cout << a[i] << "x^" << i;
+                if (i != 0) cout << " + ";
+            }
+        }
+        cout << "\n";
+    }
+
+    int value(int x) {
+        int res = 0;
+        for (int i = n; i >= 0; i--) {
+            res = res * x + a[i];
+        }
+        return res;
+    }
+};
+
+int main() {
+    Poly p;
+
+    p.input();
+    p.show();
+
+    int x;
+    cin >> x;
+
+    cout << p.value(x);
+
+    return 0;
+}
