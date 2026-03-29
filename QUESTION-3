@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+int c = 0;
+
+void perm1(int a[], int s, int e) {
+    if (s == e) {
+        c++;
+        cout << c << ". ";
+        for (int i = 0; i <= e; i++) cout << a[i] << " ";
+        cout << "\n";
+        return;
+    }
+
+    for (int i = s; i <= e; i++) {
+        int t = a[s];
+        a[s] = a[i];
+        a[i] = t;
+
+        perm1(a, s + 1, e);
+
+        t = a[s];
+        a[s] = a[i];
+        a[i] = t;
+    }
+}
+
+void perm2(int d[], int n, int r[], int len, int i) {
+    if (i == len) {
+        c++;
+        cout << c << ". ";
+        for (int j = 0; j < len; j++) cout << r[j] << " ";
+        cout << "\n";
+        return;
+    }
+
+    for (int k = 0; k < n; k++) {
+        r[i] = d[k];
+        perm2(d, n, r, len, i + 1);
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    int d[100];
+    for (int i = 0; i < n; i++) cin >> d[i];
+
+    int ch;
+    cin >> ch;
+
+    c = 0;
+
+    if (ch == 1) {
+        perm1(d, 0, n - 1);
+        cout << "Total = " << c;
+    }
+    else if (ch == 2) {
+        int len;
+        cin >> len;
+
+        int r[100];
+        perm2(d, n, r, len, 0);
+
+        cout << "Total = " << c;
+    }
+
+    return 0;
+}
