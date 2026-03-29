@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+class Graph {
+    int a[100][100], n;
+
+public:
+    void input() {
+        cin >> n;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                cin >> a[i][j];
+    }
+
+    void degree() {
+        for (int i = 0; i < n; i++) {
+            int in = 0, out = 0;
+
+            for (int j = 0; j < n; j++) {
+                out += a[i][j];
+                in += a[j][i];
+            }
+
+            cout << "v" << i+1 << " ";
+            cout << "In=" << in << " ";
+            cout << "Out=" << out << "\n";
+        }
+    }
+};
+
+int main() {
+    Graph g;
+
+    g.input();
+    g.degree();
+
+    return 0;
+}
